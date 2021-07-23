@@ -31,6 +31,11 @@ class RequestAdmin(admin.ModelAdmin):
         return qs.filter(manager=request.user)
 
 
+class UserRequestAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email')
+
+
 admin.site.register(StatusChoise)
 admin.site.register(TypeRequest)
 admin.site.register(Requests, RequestAdmin)
+admin.site.register(UserRequest, UserRequestAdmin)
