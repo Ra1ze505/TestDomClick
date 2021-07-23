@@ -2,9 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User, Group, Permission
 
 
-
-
 class StatusChoise(models.Model):
+    """Статусы заявки"""
     title = models.CharField(max_length=100)
 
     def __str__(self):
@@ -15,8 +14,8 @@ class StatusChoise(models.Model):
         verbose_name_plural = 'Статусы'
 
 
-
 class TypeRequest(models.Model):
+    """Типы заявок"""
     type = models.CharField(max_length=100)
 
     def __str__(self):
@@ -28,6 +27,7 @@ class TypeRequest(models.Model):
 
 
 class Requests(models.Model):
+    """Заявки"""
     name = models.CharField(max_length=100)
     type = models.ForeignKey(TypeRequest, on_delete=models.CASCADE)
     request = models.TextField()
