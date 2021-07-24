@@ -15,10 +15,10 @@ def main(request):
             TOKEN = str(uuid4())
             cd = form.cleaned_data
             r = Requests(name=cd['name'],
-                         type=cd['type'],
-                         request=cd['request'],
-                         email=cd['email'],
-                         TOKEN=TOKEN)
+                        type=cd['type'],
+                        request=cd['request'],
+                        email=cd['email'],
+                        TOKEN=TOKEN)
             r.save()
             Requests.objects.update()
             try:
@@ -36,16 +36,19 @@ def main(request):
 def my_handler(sender, update_fields, instance, **kwargs):
     sta = 'status'
     print(instance.status)
-    if sta in update_fields:
-        status = instance.status
-        api_key = settings.API
-        chat_id = str(instance.bot_id)
-        text = 'Статус вашей заявки изменился: ' + str(status)
-        url = f'https://api.telegram.org/bot{api_key}/sendMessage'
-        params = {
-            'chat_id': chat_id,
-            'text': text,
-        }
-        return requests.get(url, params=params).json()
+    if update_fields != None:
+        if sta in update_fields:
+            status = instance.status
+            api_key = settings.API
+            chat_id = str(instance.bot_id)
+            text = 'Статус вашей заявки изменился: ' + str(status)
+            url = f'https://api.telegram.org/bot{api_key}/sendMessage'
+            params = {
+                'chat_id': chat_id,
+                'text': text,
+            }
+            return requests.get(url, params=params).json()
+
+
 
 post_save.connect(my_handler, sender=Requests)
