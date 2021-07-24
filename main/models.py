@@ -34,11 +34,15 @@ class Requests(models.Model):
     email = models.EmailField()
     manager = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE, verbose_name='Менеджер')
     status = models.ForeignKey(StatusChoise, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Статус')
+    bot_id = models.CharField(max_length=100, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создано')
     updated = models.DateTimeField(auto_now=True, verbose_name='Изменено')
+    TOKEN = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return self.name
+
+
 
     class Meta:
         verbose_name = 'Заявки'

@@ -14,6 +14,17 @@ class RequestAdmin(admin.ModelAdmin):
     list_filter = ('type', 'status', 'created', 'updated')
     list_editable = ['status', 'manager']
 
+    def save_model(self, request, obj, form, change):
+        update_fields = []
+
+        # True if something changed in model
+        # Note that change is False at the very first time
+        if change:
+            if form.initial['status'] != form.cleaned_data['status']:
+                update_fields.append('status')
+
+        obj.save(update_fields=update_fields)
+
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         """Ограничиние выбора менеджера для заявки"""
         if db_field.name == 'manager':
