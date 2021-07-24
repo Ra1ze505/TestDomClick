@@ -15,10 +15,10 @@ def main(request):
             TOKEN = str(uuid4())
             cd = form.cleaned_data
             r = Requests(name=cd['name'],
-                        type=cd['type'],
-                        request=cd['request'],
-                        email=cd['email'],
-                        TOKEN=TOKEN)
+                         type=cd['type'],
+                         request=cd['request'],
+                         email=cd['email'],
+                         TOKEN=TOKEN)
             r.save()
             Requests.objects.update()
             try:
@@ -33,10 +33,11 @@ def main(request):
 
 
 """Уведомляем пользователя о статусе заявки"""
+
+
 def my_handler(sender, update_fields, instance, **kwargs):
     sta = 'status'
-    print(instance.status)
-    if update_fields != None:
+    if update_fields is not None:
         if sta in update_fields:
             status = instance.status
             api_key = settings.API
@@ -48,7 +49,6 @@ def my_handler(sender, update_fields, instance, **kwargs):
                 'text': text,
             }
             return requests.get(url, params=params).json()
-
 
 
 post_save.connect(my_handler, sender=Requests)

@@ -15,9 +15,8 @@ class RequestAdmin(admin.ModelAdmin):
     list_editable = ['status', 'manager']
 
     def save_model(self, request, obj, form, change):
+        """Отслеживаем изменение статуса для уведомления пользователя"""
         update_fields = []
-
-
         if change:
             if form.initial['status'] != form.cleaned_data['status']:
                 update_fields.append('status')
