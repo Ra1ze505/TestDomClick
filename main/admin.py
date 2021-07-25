@@ -14,14 +14,7 @@ class RequestAdmin(admin.ModelAdmin):
     list_filter = ('type', 'status', 'created', 'updated')
     list_editable = ['status', 'manager']
 
-    def save_model(self, request, obj, form, change):
-        """Отслеживаем изменение статуса для уведомления пользователя"""
-        update_fields = []
-        if change:
-            if form.initial['status'] != form.cleaned_data['status']:
-                update_fields.append('status')
 
-        obj.save(update_fields=update_fields)
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         """Ограничиние выбора менеджера для заявки"""
@@ -39,6 +32,12 @@ class RequestAdmin(admin.ModelAdmin):
             return qs
         return qs.filter(manager=request.user)
 
+    def save_model(self, request, obj, form, change):
+        """Отслеживаем изменение статуса для уведомления пользователя"""
+        update_fields = []
+        if form.has_changed():
+            update_fields = form.changed_data
+        obj.save(update_fields=update_fields)
 
 class UserRequestAdmin(admin.ModelAdmin):
     list_display = ('name', 'email')

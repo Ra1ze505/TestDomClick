@@ -32,16 +32,16 @@ def main(request):
     return render(request, 'main/main.html', {'form': form})
 
 
-"""Уведомляем пользователя о статусе заявки"""
-
-
-def my_handler(sender, update_fields, instance, **kwargs):
-    sta = 'status'
+def send_updates_status(sender, update_fields, instance, **kwargs):
+    """Уведомляем пользователя о статусе заявки"""
     if update_fields is not None:
+        sta = 'status'
         if sta in update_fields:
             status = instance.status
+            chat_id = instance.bot_id
+            # status = instance.status
             api_key = settings.API
-            chat_id = str(instance.bot_id)
+            # chat_id = str(instance.bot_id)
             text = 'Статус вашей заявки изменился: ' + str(status)
             url = f'https://api.telegram.org/bot{api_key}/sendMessage'
             params = {
@@ -50,5 +50,5 @@ def my_handler(sender, update_fields, instance, **kwargs):
             }
             return requests.get(url, params=params).json()
 
-
-post_save.connect(my_handler, sender=Requests)
+# Конекстим с сигналом
+post_save.connect(send_updates_status, sender=Requests)
