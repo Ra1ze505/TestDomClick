@@ -15,6 +15,7 @@ cd TestDomClick
 pip install -r requirements.txt
 ```
 
+
 Вы можете протестировать возможности проекта на предоставленной **тестовой** базе данных
 (**Суперюзер**: Логин:admin Пароль:1234 **Тестовый менеджер**: Логин:ivan Пароль:TestDomClick) или удалить файл **db.sqlite3** и подключить свою базу данных в **TestDomClick/settings.py**.
 
@@ -33,6 +34,10 @@ python manage.py createsuperuser
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
+```
+Или просто запустите команду
+```
+docker-compose up
 ```
 Для активации бота необходимо заспустить файл bot.py **глобально** через python Console. Для тестирования был создан бот.
 ## Функционал

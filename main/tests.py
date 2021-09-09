@@ -15,4 +15,4 @@ class RequestTestCases(TestCase):
 
     def test_add_request(self):
         """Тестируем наличие дублирования"""
-        self.assertEqual(Requests.objects.count(),1)
+        self.assertEqual(Requests.objects.count(), 1)

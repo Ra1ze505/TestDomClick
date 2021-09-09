@@ -10,7 +10,7 @@ class StatusChoise(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Статусы'
+        verbose_name = 'Статус'
         verbose_name_plural = 'Статусы'
 
 
@@ -23,7 +23,7 @@ class TypeRequest(models.Model):
 
     class Meta:
         verbose_name = 'Виды заявок'
-        verbose_name_plural = 'Виды заявок'
+        verbose_name_plural = verbose_name
 
 
 class Requests(models.Model):
@@ -44,7 +44,7 @@ class Requests(models.Model):
 
     class Meta:
         verbose_name = 'Заявки'
-        verbose_name_plural = 'Заявки'
+        verbose_name_plural = verbose_name
 
 
 class UserRequest(models.Model):
@@ -56,4 +56,4 @@ class UserRequest(models.Model):
 
     class Meta:
         verbose_name = 'Пользователи оформившие заявку'
-        verbose_name_plural = 'Пользователи оформившие заявку'
+        verbose_name_plural = verbose_name

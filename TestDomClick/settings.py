@@ -116,5 +116,5 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# bot settings
+# Bot settings
 API = '1826020955:AAF6LqvGn2JyRA6MzzO1D-nZUFTxrtRciiU'
