@@ -15,7 +15,6 @@ class RequestAdmin(admin.ModelAdmin):
     list_editable = ['status', 'manager']
 
 
-
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         """Ограничиние выбора менеджера для заявки"""
         if db_field.name == 'manager':
@@ -38,6 +37,7 @@ class RequestAdmin(admin.ModelAdmin):
         if form.has_changed():
             update_fields = form.changed_data
         obj.save(update_fields=update_fields)
+
 
 class UserRequestAdmin(admin.ModelAdmin):
     list_display = ('name', 'email')

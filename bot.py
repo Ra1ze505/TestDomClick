@@ -3,7 +3,6 @@ from django.conf import settings
 
 from main.models import Requests
 
-
 bot = telebot.TeleBot(settings.API)
 
 
@@ -15,7 +14,7 @@ def activate(message):
         if len(qs) == 2:
             token = str(qs[1])
             try:
-                obj = Requests.objects.filter(TOKEN=token)
+                obj = Requests.objects.get(TOKEN=token)
             except Requests.DoesNotExist:
                 obj = None
                 bot.reply_to(message, 'Не удалось привязать бота')
@@ -26,6 +25,7 @@ def activate(message):
 
 def main():
     bot.polling()
+
 
 if __name__ == '__main__':
     main()
